@@ -1,0 +1,24 @@
+t=0:1/100:1;
+x=sin(2*pi*t);
+figure;
+plot(t,x);
+y=0.5*rand(size(x));
+noisy_signal=x+y;
+figure;
+plot(t,noisy_signal);
+
+
+order = 10;                    
+L = order + 1;                 
+fs = 5;                 
+fc = 0.2;                 
+w1 = hamming(L);
+
+%LPF DESIGN
+fc_normalized1 = fc;  
+q1 = fir1(order, fc_normalized1, 'low', w1);
+y1=filter(q1,1,noisy_signal);
+fvtool(q1,1);
+legend('LPF');
+
+%HPF
