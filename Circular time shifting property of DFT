@@ -1,0 +1,28 @@
+x = input('Enter the signal as a vector : ');
+
+N = length(x);
+
+m = input('Enter the number of samples to circularly shift: ');
+
+X = fft(x);
+
+y = circshift(x, [0, m]);
+
+Y = fft(y);
+
+k = 0:N-1;
+phase_shift = exp(-1j * 2 * pi * k * m / N);
+
+X_shifted = phase_shift .* X;
+
+disp('DFT of the shifted signal (Y[k]):');
+disp(Y);
+
+disp('DFT of the original signal with phase shift (X[k] * exp(-j2πkm/N)):');
+disp(X_shifted);
+
+if isequal(round(Y, 10), round(X_shifted, 10))
+    disp('The circular time-shifting property of DFT is verified.');
+else
+    disp('The circular time-shifting property of DFT is NOT verified.');
+end
