@@ -1,0 +1,5 @@
+syms n z
+x = 0.5^n; % Define the sequence x(n)
+X_z = ztrans(x, n, z); % Compute the Z-transform
+disp('Z-transform of x(n) = 0.5^n is:')
+disp(X_z)
