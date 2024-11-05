@@ -1,0 +1,12 @@
+% Parameters
+n = -5:5;  % Discrete time index
+
+% Generate impulse signal using signum function
+impulse_signal = 0.5 * (sign(n + 0.5) - sign(n - 0.5));
+
+% Plotting
+figure;
+stem(n, impulse_signal, 'filled');
+title('Discrete Impulse Signal using Signum Function');
+xlabel('n');
+ylabel('Amplitude');
