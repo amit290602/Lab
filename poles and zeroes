@@ -1,0 +1,12 @@
+num = [1 .8 .8];
+denom = [1 0 .49];
+
+Y = tf([1 0.8 .8],[1 0 0.49]);
+
+N = roots(num);
+D = roots(denom);
+
+%pzmap(num, denom);
+zplane(num, denom);
+
+grid on;
