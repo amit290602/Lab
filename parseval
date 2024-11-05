@@ -1,0 +1,25 @@
+% Take user input for the signal
+x = input('Enter the signal as a vector w: ');
+
+% Length of the signal
+N = length(x);
+
+% Compute the DFT of the signal
+X = fft(x);
+
+% Compute the energy in the time domain
+energy_time = sum(abs(x).^2);
+
+% Compute the energy in the frequency domain (normalized by N)
+energy_freq = sum(abs(X).^2) / N;
+
+% Display the energies
+disp(['Energy in time domain: ', num2str(energy_time)]);
+disp(['Energy in frequency domain (Parseval): ', num2str(energy_freq)]);
+
+% Verify Parseval's theorem
+if abs(energy_time - energy_freq) < 1e-10
+    disp('Parseval''s theorem is verified.');
+else
+    disp('Parseval''s theorem is NOT verified.');
+end
