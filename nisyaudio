@@ -1,0 +1,61 @@
+b = audiorecorder;
+disp('Start Recording......')
+recordblocking(b, 10);
+disp('End of recording. Playing back ...');
+
+c=getaudiodata(b);
+plot(c);
+title('Audio Signal');
+
+
+order = 10;                    
+L = order + 1;                 
+fs = 5;                 
+fc = 0.2;                 
+w1 = hamming(L);
+
+%LPF DESIGN
+fc_normalized1 = fc;  
+q1 = fir1(order, fc_normalized1, 'low', w1);
+y1=filter(q1,1,c);
+fvtool(q1,1);
+legend('LPF');
+
+%HPF
+q2 = fir1(order, fc_normalized1, 'high', w1);
+y2=filter(q2,1,c);
+fvtool(q2,1);
+legend('HPF');
+
+
+%BPF
+fc1 = 0.4; 
+fc2 = 0.6;
+fc_normalized2 = [fc1,fc2];  
+q3 = fir1(order, fc_normalized2, 'bandpass', w1);
+y3=filter(q3,1,c);
+fvtool(q3,1);
+legend('BPF');
+
+%BSF
+q4 = fir1(order, fc_normalized2, 'stop', w1);
+y4=filter(q4,1,c);
+fvtool(q4,1);
+legend('BSF');
+
+figure;
+subplot(2,2,1);
+plot(y1);
+title('LPF');
+
+subplot(2,2,2);
+plot(y2);
+title('HPF');
+
+subplot(2,2,3);
+plot(y3);
+title('BPF');
+
+subplot(2,2,4);
+plot(y4);
+title('BSF');
