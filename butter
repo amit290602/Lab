@@ -1,0 +1,68 @@
+T_LPF= 1;
+
+As=0.1;
+Ap= 0.6;
+
+wp= 0.35*pi;
+ws=0.7*pi;
+
+ohms_p=2*tan(wp/2)/T_LPF;
+ohms_s=2*tan(ws/2)/T_LPF;
+
+alpha_p=-20*log10(Ap);
+alpha_s=-20*log10(As);
+
+[N, omega_c] = buttord(ohms_p, ohms_s, alpha_p, alpha_s, 's');
+[b, a]=butter(N, omega_c, 's');
+[bz, az]=bilinear(b, a, 1/T_LPF);
+
+H = tf(bz, az, T_LPF);
+Hw = freqz(bz, az);
+figure;
+plot(abs(Hw));
+title('Mangnitude responce of the BUTTERWORTH LPF');
+
+figure;
+freqz(bz, az, 1024, 'half', 1/T_LPF);
+title('Mangnitude responce of the BUTTERWORTH LPF')
+
+% figure;
+% freqz(bz, az, 1024, 'whole', 1/T_LPF);
+% title('Mangnitude responce of the BUTTERWORTH LPF')
+
+%=============================================================
+
+
+%butterworth HPF
+
+T_HPF= 2;
+
+As=0.1;
+Ap= 0.6;
+
+wp= 0.6*pi;
+ws=0.3*pi;
+
+ohms_p=2*tan(wp/2)/T_HPF;
+ohms_s=2*tan(ws/2)/T_HPF;
+
+alpha_p=-20*log10(Ap);
+alpha_s=-20*log10(As);
+
+[N_HPF, omega_c] = buttord(ohms_p, ohms_s, alpha_p, alpha_s, 's');
+[b, a]=butter(N_HPF, omega_c, 'high', 's');
+[bz, az]=bilinear(b, a, 1/T_HPF);
+
+H = tf(bz, az, T_HPF);
+Hw = freqz(bz, az);
+figure;
+plot(abs(Hw));
+title('Mangnitude responce of the BUTTERWORTH HPF');
+
+figure;
+freqz(bz, az, 1024, 'half', 1/T_HPF);
+title('Mangnitude responce of the BUTTERWORTH HPF')
+% 
+% figure;
+% freqz(bz, az, 1024, 'whole', 1/T_HPF);
+% title('Mangnitude responce of the BUTTERWORTH HPF')
