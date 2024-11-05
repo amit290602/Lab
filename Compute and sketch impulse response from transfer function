@@ -1,0 +1,9 @@
+clc;
+clear;
+
+num = [1];
+denom = [1 -1.5 .5];
+
+Y = tf(num,denom, 0.5);
+impulse(Y);
+disp(impulse(Y));
