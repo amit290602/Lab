@@ -1,0 +1,37 @@
+%butterworth Hpf
+
+[y, Fs] = audioread("harvard.wav");
+x = y(:,1);
+figure;
+plot(x);
+
+T_LPF= 1;
+
+As=0.1;
+Ap= 0.6;
+
+ws= 0.35*pi;
+wp=0.7*pi;
+
+ohms_s=2*tan(wp/2)/T_LPF;
+ohms_p=2*tan(ws/2)/T_LPF;
+
+alpha_p=-20*log10(Ap);
+alpha_s=-20*log10(As);
+
+[N, omega_c] = buttord(ohms_p, ohms_s, alpha_p, alpha_s, 's');
+[b, a]=butter(N, omega_c,'high', 's');
+[bz, az]=bilinear(b, a, 1/T_LPF);
+
+H = tf(bz, az, T_LPF);
+Hw = freqz(bz, az);
+% figure;
+% plot(abs(Hw));
+% title('Mangnitude responce of the BUTTERWORTH LPF');
+% 
+% figure;
+% freqz(bz, az, 1024, 'half', 1/T_LPF);
+% title('Mangnitude responce of the BUTTERWORTH LPF')
+figure;
+y_out = filter(bz, az, x);
+plot(y_out);
