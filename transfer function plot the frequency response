@@ -1,0 +1,10 @@
+num1 = [1 -0.9 0 0.8];
+denom1 = 1;
+
+figure;
+freqz(num1, denom1);
+title('Frequency Response');
+xlabel('Frequency (rad/sample)');
+ylabel('Magnitude and Phase');
+fvtool(num1,denom1);
+grid on
