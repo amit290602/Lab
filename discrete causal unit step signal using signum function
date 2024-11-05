@@ -1,0 +1,12 @@
+% Parameters
+n = -5:5;  % Discrete time index
+
+% Generate unit step signal using signum function
+unit_step_signal = (sign(n) + 1) / 2;
+
+% Plotting
+figure;
+stem(n, unit_step_signal, 'filled');
+title('Discrete Causal Unit Step Signal using Signum Function');
+xlabel('n');
+ylabel('Amplitude');
