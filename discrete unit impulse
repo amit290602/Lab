@@ -1,0 +1,15 @@
+
+figure;
+n1=0:1:10;
+y1=(n1>=0);
+stem(n1,y1);
+ylabel('amplitude');
+xlabel('discrete time');
+title('unit step(causal)');
+figure;
+n=-5:1:5;
+y=(n>=0);
+stem(n,y);
+ylabel('amplitude');
+xlabel('discrete time');
+title('unit step(non causal)');
