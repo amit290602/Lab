@@ -1,0 +1,12 @@
+% Parameters
+n = -5:5;  % Discrete time index
+
+% Generate ramp signal using signum function
+ramp_signal = n .* ((sign(n) + 1) / 2);
+
+% Plotting
+figure;
+stem(n, ramp_signal, 'filled');
+title('Discrete Causal Ramp Signal using Signum Function');
+xlabel('n');
+ylabel('Amplitude');
