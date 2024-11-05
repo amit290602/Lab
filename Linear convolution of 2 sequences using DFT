@@ -1,0 +1,23 @@
+x1 = input('Enter the first sequence (x1) as a vector (e.g., [1 2 3 4]): ');
+x2 = input('Enter the second sequence (x2) as a vector (e.g., [2 1 2 1]): ');
+N1 = length(x1);
+N2 = length(x2);
+N = N1 + N2 - 1;
+
+x1_padded = [x1, zeros(1, N - N1)];
+x2_padded = [x2, zeros(1, N - N2)];
+X1 = fft(x1_padded);
+X2 = fft(x2_padded);
+Y_freq = X1 .* X2;
+y_linear_conv = ifft(Y_freq);
+y_conv = conv(x1, x2);
+disp('Linear convolution using DFT:');
+disp(y_linear_conv);
+
+disp('Linear convolution using MATLAB conv function:');
+disp(y_conv);
+if isequal(round(y_linear_conv, 10), round(y_conv, 10))
+    disp('The linear convolution using DFT is verified.');
+else
+    disp('The linear convolution using DFT is NOT verified.');
+end
