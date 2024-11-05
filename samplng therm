@@ -1,0 +1,36 @@
+% Define analog signal for comparison
+t = -100:100;
+fm = 0.02;
+x = 2*sin(2 * pi * t * fm);
+subplot(411);
+plot(t, x);
+xlabel('time in sec');
+ylabel('x(t)');
+title('Continuous Time Signal');
+%  fs1 < 2*fm
+fs1 = 0.08;
+n1 = -2:2;
+x1 = 2*sin(2 * pi * fm * (n1 / fs1));
+subplot(412);
+plot(n1, x1,':');
+title('Discrete Time Signal x(n) with fs < 2fm');
+xlabel('n');
+ylabel('x(n)');
+% fs = 2*fm
+fs2 = 0.1;
+n2 = -4:4;
+x2 = 2*sin(2 * pi * fm * (n2 / fs2));
+subplot(413);
+plot(n2, x2,':');
+title('Discrete Time Signal x(n) with fs = 2fm');
+xlabel('n');
+ylabel('x(n)');
+% fs > 2fm
+fs3 = 0.5;
+n3 = -50:50;
+x3 = 2*sin(2 * pi * fm * (n3 / fs3));
+subplot(414);
+plot(n3, x3,':');
+xlabel('n');
+ylabel('x(n)');
+title('Discrete Time Signal x(n) with fs > 2fm');
