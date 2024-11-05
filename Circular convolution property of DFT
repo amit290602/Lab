@@ -1,0 +1,21 @@
+x1 = input('Enter the first sequence (x1) as a vector (e.g., [1 2 3 4]): ');
+x2 = input('Enter the second sequence (x2) as a vector (e.g., [1 2 3 4]): ');
+N = max(length(x1), length(x2)); 
+x1 = [x1, zeros(1, N - length(x1))]; 
+x2 = [x2, zeros(1, N - length(x2))]; 
+X1 = fft(x1);
+X2 = fft(x2);
+Y_freq = X1 .* X2;
+y_dft_conv = ifft(Y_freq);
+y_cconv = cconv(x1, x2, N);
+disp('Circular convolution using DFT:');
+disp(y_dft_conv);
+
+disp('Circular convolution using MATLAB cconv function:');
+disp(y_cconv);
+
+if isequal(round(y_dft_conv, 10), round(y_cconv, 10))
+    disp('The circular convolution property of DFT is verified.');
+else
+    disp('The circular convolution property of DFT is NOT verified.');
+end
