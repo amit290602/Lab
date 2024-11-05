@@ -1,0 +1,21 @@
+x = input('Enter the signal as a vector : ');
+
+
+N = length(x);
+
+X = fft(x);
+disp('DFT of the signal:');
+disp(X);
+k = input('Enter the index k to check periodicity (0 <= k < N): ');
+if k < 0 || k >= N
+    error('Invalid index. k must be between 0 and N-1.');
+end
+X_k_plus_N = X(mod(k + N, N) + 1);  
+X_k = X(k + 1);  
+disp(['X[k] for k = ', num2str(k), ' is: ', num2str(X_k)]);
+disp(['X[k + N] for k = ', num2str(k), ' is: ', num2str(X_k_plus_N)]);
+if abs(X_k - X_k_plus_N) < 1e-10
+    disp('The periodicity property of DFT is verified.');
+else
+    disp('The periodicity property of DFT is NOT verified.');
+end
