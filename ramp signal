@@ -1,0 +1,25 @@
+%using relational operators
+%discrete ramp signal
+clear all;
+close all;
+clc;
+
+n1=0:1:10;
+y0=(n1>=0);
+y1=n1.*y0;
+figure;
+stem(n1,y1);
+ylabel('amp');
+xlabel('time(discrete)');
+title('ramp signal(causal)');
+
+%discrete non-causal ramp signal 
+
+n=-5:1:5;
+y2=(n>=0);
+y=n.*y2;
+figure;
+stem(n,y);
+ylabel('amp');
+xlabel('time(discrete)');
+title('ramp signal(non causal)');
