@@ -1,0 +1,26 @@
+clc;
+clear all;
+close all;
+% Specifications
+order = 30;          % Filter order
+Fs = 8000;           % Sampling frequency in Hz
+Fc = 2000;           % Cutoff frequency in Hz
+Wn = Fc/(Fs/2);      % Normalized cutoff frequency (0 to 1)
+
+% Window functions
+windows = {@rectwin, @hamming, @hann, @blackman, @bartlett};  % List of windows
+window_names = {'Rectangular', 'Hamming', 'Hanning', 'Blackman', 'Bartlett'};
+
+% Initialize figure
+
+for i = 1:length(windows)
+    figure(i);
+    % Design the FIR filter with the current window
+    win = windows{i}(order + 1);   % Create window of length (order+1)
+    b = fir1(order, Wn, win);      % Design FIR filter
+    
+    % Plot the frequency response
+    subplot(length(windows), 1, i);
+    freqz(b, 1, 1024, Fs);         % Frequency response
+    title(['Frequency Response using ', window_names{i}, ' Window']);
+end
